@@ -1,0 +1,58 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Timeline from '../components/Timeline.astro';
+import SkillIcons from '../components/SkillIcons.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import { getEntry, render } from 'astro:content';
+
+const about = await getEntry('about', 'index');
+const { Content } = await render(about);
+
+const timelineItems = [
+  { period: '2026.05 - 至今', title: 'Software Engineer', description: '当前的工作职位描述' },
+  { period: '2024.06 - 2026.04', title: 'Frontend Developer', description: '之前的工作经历' },
+  { period: '2020.09 - 2024.06', title: 'Computer Science, University', description: '教育背景' },
+];
+---
+
+<PageLayout title="About - dalong">
+  <div style="padding-top: 2rem;">
+    <!-- Two Column Layout -->
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; margin-bottom: 3rem; align-items: start;">
+      <!-- Left: Bio -->
+      <div class="prose">
+        <Content />
+      </div>
+
+      <!-- Right: Skills -->
+      <div>
+        <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">技能栈</h3>
+        <SkillIcons />
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div style="margin-bottom: 3rem;">
+      <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1.5rem;">经历</h3>
+      <Timeline items={timelineItems} />
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">联系方式</h3>
+      <SocialLinks
+        github="https://github.com/lh1564803535-code"
+        twitter="https://x.com/lh1564803535-code"
+        email="lh1564803535@gmail.com"
+      />
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 768px) {
+      div[style*="grid-template-columns: 2fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+</PageLayout>

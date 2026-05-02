@@ -1,0 +1,36 @@
+---
+const skills = [
+  { name: 'HTML', icon: '🌐' },
+  { name: 'CSS', icon: '🎨' },
+  { name: 'JavaScript', icon: '⚡' },
+  { name: 'TypeScript', icon: '🔷' },
+  { name: 'React', icon: '⚛️' },
+  { name: 'Vue', icon: '💚' },
+  { name: 'Astro', icon: '🚀' },
+  { name: 'Tailwind', icon: '🌊' },
+  { name: 'Node.js', icon: '🟢' },
+  { name: 'Python', icon: '🐍' },
+  { name: 'Git', icon: '📦' },
+  { name: 'Docker', icon: '🐳' },
+];
+---
+
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+  {skills.map((skill) => (
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 1rem; background: var(--color-bg-secondary); border-radius: 12px; transition: transform 0.15s;"
+      onmouseover="this.style.transform='translateY(-2px)'"
+      onmouseout="this.style.transform=''"
+    >
+      <span style="font-size: 1.5rem;">{skill.icon}</span>
+      <span style="font-size: 0.75rem; color: var(--color-text-secondary);">{skill.name}</span>
+    </div>
+  ))}
+</div>
+
+<style>
+  @media (max-width: 640px) {
+    div[style*="grid-template-columns: repeat(4"] {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+  }
+</style>

@@ -1,0 +1,106 @@
+---
+interface Props {
+  placeholder?: string;
+}
+
+const { placeholder = "Search posts..." } = Astro.props;
+---
+
+<div style="position: relative; max-width: 100%;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--color-text-secondary);">
+    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+  </svg>
+  <input
+    type="text"
+    id="search-input"
+    placeholder={placeholder}
+    autocomplete="off"
+    style="width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem; background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-text-primary); font-size: 0.9rem; outline: none; transition: border-color 0.15s;"
+    onfocus="this.style.borderColor='var(--color-accent)'"
+    onblur="this.style.borderColor='var(--color-border)'"
+  />
+  <div id="search-results" style="display: none; position: absolute; top: 100%; left: 0; right: 0; margin-top: 0.5rem; background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: 8px; max-height: 300px; overflow-y: auto; z-index: 50; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+  </div>
+</div>
+
+<script is:inline>
+  // Fuse.js-like fuzzy search (lightweight implementation)
+  function fuzzyMatch(pattern, str) {
+    pattern = pattern.toLowerCase();
+    str = str.toLowerCase();
+    let pi = 0, si = 0, score = 0, lastMatchIndex = -1;
+    while (pi < pattern.length && si < str.length) {
+      if (pattern[pi] === str[si]) {
+        score += 10;
+        if (lastMatchIndex === si - 1) score += 5; // consecutive bonus
+        if (si === 0 || str[si - 1] === ' ' || str[si - 1] === '-' || str[si - 1] === '_') score += 8; // word boundary bonus
+        lastMatchIndex = si;
+        pi++;
+      }
+      si++;
+    }
+    return pi === pattern.length ? score : 0;
+  }
+
+  function highlightText(query, text) {
+    if (!query) return text;
+    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return text.replace(regex, '<mark style="background: var(--color-accent); color: white; padding: 0 2px; border-radius: 2px;">$1</mark>');
+  }
+
+  const searchInput = document.getElementById('search-input');
+  const searchResults = document.getElementById('search-results');
+
+  // Collect all blog posts from the page
+  const blogCards = document.querySelectorAll('[data-blog-card]');
+  const posts = Array.from(blogCards).map(card => ({
+    title: card.getAttribute('data-title') || '',
+    description: card.getAttribute('data-description') || '',
+    tags: card.getAttribute('data-tags') || '',
+    slug: card.getAttribute('data-slug') || '',
+    element: card
+  }));
+
+  if (searchInput && searchResults) {
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.trim();
+      if (!query) {
+        searchResults.style.display = 'none';
+        searchResults.innerHTML = '';
+        posts.forEach(p => p.element.style.display = '');
+        return;
+      }
+
+      // Score each post
+      const scored = posts.map(p => {
+        const titleScore = fuzzyMatch(query, p.title) * 2;
+        const descScore = fuzzyMatch(query, p.description);
+        const tagScore = p.tags.split(',').reduce((acc, t) => acc + fuzzyMatch(query, t) * 1.5, 0);
+        return { ...p, score: titleScore + descScore + tagScore };
+      }).filter(p => p.score > 0).sort((a, b) => b.score - a.score);
+
+      if (scored.length > 0) {
+        searchResults.innerHTML = scored.map(p => `
+          <a href="/blog/${p.slug}" style="display: block; padding: 0.75rem 1rem; text-decoration: none; color: var(--color-text-primary); border-bottom: 1px solid var(--color-border); transition: background 0.1s;"
+            onmouseover="this.style.background='var(--color-bg-secondary)'"
+            onmouseout="this.style.background='transparent'"
+          >
+            <div style="font-weight: 600; font-size: 0.9rem;">${highlightText(query, p.title)}</div>
+            <div style="color: var(--color-text-secondary); font-size: 0.8rem; margin-top: 0.25rem;">${highlightText(query, p.description.slice(0, 100))}</div>
+          </a>
+        `).join('');
+        searchResults.style.display = 'block';
+      } else {
+        searchResults.innerHTML = '<div style="padding: 0.75rem 1rem; color: var(--color-text-secondary); font-size: 0.85rem;">No results found</div>';
+        searchResults.style.display = 'block';
+      }
+    });
+
+    // Close results on outside click
+    document.addEventListener('click', (e) => {
+      if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+        searchResults.style.display = 'none';
+      }
+    });
+  }
+</script>

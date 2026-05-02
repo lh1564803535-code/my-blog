@@ -1,0 +1,38 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = (await getCollection('projects')).sort((a, b) => {
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  return 0;
+});
+---
+
+<PageLayout title="Projects - dalong">
+  <div style="padding-top: 2rem;">
+    <h1 style="font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem;">Projects</h1>
+
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+      {allProjects.map((project) => (
+        <ProjectCard
+          name={project.data.name}
+          description={project.data.description}
+          tags={project.data.tags}
+          github={project.data.github}
+          demo={project.data.demo}
+          featured={project.data.featured}
+        />
+      ))}
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 768px) {
+      div[style*="grid-template-columns: repeat(2"] {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+</PageLayout>

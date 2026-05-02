@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogCard from '../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+import { Github, Twitter, Mail } from 'lucide-astro';
+
+const allPosts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const latestPosts = allPosts.slice(0, 3);
+---
+
+<BaseLayout title="dalong - Personal Blog" description="Your Tagline">
+  <!-- Hero Section -->
+  <section style="display: flex; align-items: center; justify-content: space-between; gap: 3rem; min-height: 60vh; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 300px;">
+      <h1 style="font-size: 3rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.75rem;">
+        Hi, I'm dalong
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-text-secondary); line-height: 1.6;">
+        Your Tagline
+      </p>
+    </div>
+    <div style="flex-shrink: 0;">
+      <div style="width: 200px; height: 200px; border-radius: 50%; background: var(--color-bg-secondary); display: flex; align-items: center; justify-content: center; overflow: hidden; border: 3px solid var(--color-border);">
+        <img src="/avatar.png" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'font-size:4rem\'>👤</span>'" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Posts Section -->
+  <section style="padding: 4rem 0;">
+    <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Latest Posts</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+      {latestPosts.map((post, index) => (
+        <BlogCard
+          title={post.data.title}
+          date={post.data.date}
+          description={post.data.description}
+          tags={post.data.tags}
+          slug={post.id.replace(/\.md$/, '')}
+          index={index}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- Social Links -->
+  <section style="padding: 2rem 0 4rem; display: flex; justify-content: center; gap: 1.5rem;">
+    <a href="https://github.com/lh1564803535-code" target="_blank" rel="noopener" style="color: var(--color-text-secondary); transition: all 0.15s;" onmouseover="this.style.color='var(--color-accent)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.color='var(--color-text-secondary)'; this.style.transform=''">
+      <Github size={24} />
+    </a>
+    <a href="https://x.com/lh1564803535-code" target="_blank" rel="noopener" style="color: var(--color-text-secondary); transition: all 0.15s;" onmouseover="this.style.color='var(--color-accent)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.color='var(--color-text-secondary)'; this.style.transform=''">
+      <Twitter size={24} />
+    </a>
+    <a href="mailto:lh1564803535@gmail.com" style="color: var(--color-text-secondary); transition: all 0.15s;" onmouseover="this.style.color='var(--color-accent)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.color='var(--color-text-secondary)'; this.style.transform=''">
+      <Mail size={24} />
+    </a>
+  </section>
+
+  <style>
+    @media (max-width: 768px) {
+      section > div[style*="grid-template-columns: repeat(3"] {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+</BaseLayout>

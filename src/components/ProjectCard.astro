@@ -1,0 +1,50 @@
+---
+import { Github, ExternalLink, Star } from 'lucide-astro';
+
+interface Props {
+  name: string;
+  description: string;
+  tags: string[];
+  github?: string;
+  demo?: string;
+  featured?: boolean;
+}
+
+const { name, description, tags, github, demo, featured } = Astro.props;
+---
+
+<div class="card-animate card-shadow" style="padding: 1.5rem; background: var(--color-bg-card); border-radius: 12px; position: relative; display: flex; flex-direction: column; height: 100%;"
+  onmouseover="this.style.transform='translateY(-2px)'"
+  onmouseout="this.style.transform=''"
+  >
+  {featured && (
+    <div style="position: absolute; top: 0; left: 0; background: var(--color-accent); color: white; padding: 0.2rem 0.6rem; border-radius: 12px 0 12px 0; font-size: 0.7rem; font-weight: 600; display: flex; align-items: center; gap: 0.25rem;">
+      <Star size={12} />
+      Featured
+    </div>
+  )}
+
+  <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; {featured ? 'margin-top: 0.5rem;' : ''}">{name}</h3>
+  <p style="color: var(--color-text-secondary); font-size: 0.9rem; margin-bottom: 1rem; flex: 1;">{description}</p>
+
+  <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+    {tags.map((tag) => (
+      <span style="background: var(--color-bg-secondary); color: var(--color-accent); padding: 0.2rem 0.6rem; border-radius: 8px; font-size: 0.7rem;">{tag}</span>
+    ))}
+  </div>
+
+  <div style="display: flex; gap: 0.75rem;">
+    {github && (
+      <a href={github} target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 0.25rem; color: var(--color-text-secondary); text-decoration: none; font-size: 0.85rem; transition: color 0.15s;" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color='var(--color-text-secondary)'">
+        <Github size={16} />
+        GitHub
+      </a>
+    )}
+    {demo && (
+      <a href={demo} target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 0.25rem; color: var(--color-text-secondary); text-decoration: none; font-size: 0.85rem; transition: color 0.15s;" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color='var(--color-text-secondary)'">
+        <ExternalLink size={16} />
+        Demo
+      </a>
+    )}
+  </div>
+</div>
