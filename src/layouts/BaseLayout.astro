@@ -1,112 +1,68 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
 interface Props {
   title: string;
   description?: string;
-  image?: string;
-  type?: string;
+  activeNav?: string;
 }
 
-const {
-  title,
-  description = 'dalong personal blog',
-  image = '/og-default.svg',
-  type = 'website'
-} = Astro.props;
+const { title, description = 'dalong 的个人博客', activeNav = '' } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!DOCTYPE html>
-<html lang="zh-CN" class="dark">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalURL} />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content={type} />
+  <meta property="og:type" content="website" />
   <meta property="og:url" content={canonicalURL} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:image" content={new URL(image, Astro.site)} />
-  <meta property="og:site_name" content="dalong Blog" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={new URL(image, Astro.site)} />
-
-  <!-- RSS -->
-  <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml" />
-
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-  <!-- Theme init script (runs before paint to prevent flash) -->
-  <script is:inline>
-    const theme = (() => {
-      if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-        return localStorage.getItem('theme');
-      }
-      // Follow system preference
-      if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-        return 'light';
-      }
-      return 'dark';
-    })();
-    if (theme === 'light') {
-      document.documentElement.classList.remove('dark');
-    } else {
-      document.documentElement.classList.add('dark');
-    }
-
-    // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-      if (!localStorage.getItem('theme')) {
-        document.documentElement.classList.toggle('dark', e.matches);
-      }
-    });
-  </script>
-
-  <!-- Structured Data (JSON-LD) -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "dalong Blog",
-    "url": String(Astro.site),
-    "description": "Personal blog about frontend development and technology",
-    "author": {
-      "@type": "Person",
-      "name": "dalong"
-    }
-  })} />
-
-  <style>
-    .page-content {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    @media (max-width: 768px) {
-      .page-content {
-        padding: 0 16px;
-      }
-    }
-  </style>
-
   <meta name="generator" content={Astro.generator} />
 </head>
-<body style="background-color: var(--color-bg-primary); color: var(--color-text-primary); min-height: 100vh; display: flex; flex-direction: column;">
-  <Header />
-  <main class="page-content" style="flex: 1; padding-top: 80px;">
-    <slot />
-  </main>
-  <Footer />
+<body>
+  <div class="sidebar fade-in">
+    <div>
+      <a href="/" style="text-decoration:none; border-bottom:none;">
+        <div class="site-title">
+          <span class="site-title-large">保持思考</span>
+          <span class="site-title-small">dalong's blog</span>
+        </div>
+      </a>
+    </div>
 
+    <nav class="site-nav">
+      <ul>
+        <li class={activeNav === 'home' ? 'current' : ''}><a href="/">Home</a></li>
+        <li class={activeNav === 'archives' ? 'current' : ''}><a href="/blog">Archives</a></li>
+        <li class={activeNav === 'projects' ? 'current' : ''}><a href="/projects">Projects</a></li>
+        <li class={activeNav === 'about' ? 'current' : ''}><a href="/about">About</a></li>
+        <li class="social-links">
+          <a href="https://github.com/lh1564803535-code" target="_blank" rel="noopener">GitHub</a>
+          <a href="/rss.xml" target="_blank">RSS</a>
+        </li>
+      </ul>
+
+      <div class="site-nav-footer">
+        <p>&copy; 2026 <a href="/">dalong</a></p>
+        <p>Proudly published with <a href="https://astro.build" target="_blank">Astro</a></p>
+      </div>
+    </nav>
+  </div>
+
+  <div class="main-content fade-in-right">
+    <slot />
+  </div>
+
+  <div class="mobile-footer">
+    <p>&copy; 2026 <a href="/" style="border-bottom:none;">dalong</a> · Built with Astro</p>
+  </div>
 </body>
 </html>

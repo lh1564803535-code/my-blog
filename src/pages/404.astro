@@ -3,11 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="404 - Page Not Found">
-  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center;">
-    <h1 style="font-size: 6rem; font-weight: 700; color: var(--color-accent); line-height: 1; margin-bottom: 1rem;">404</h1>
-    <p style="font-size: 1.25rem; color: var(--color-text-secondary); margin-bottom: 2rem;">Page not found</p>
-    <a href="/" style="padding: 0.75rem 1.5rem; background: var(--color-accent); color: white; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.15s;" onmouseover="this.style.background='var(--color-accent-hover)'" onmouseout="this.style.background='var(--color-accent)'">
-      Go Home
-    </a>
+  <div style="text-align: center; padding: 100px 0;">
+    <h1 style="font-size: 72px; font-weight: 700; margin: 0; color: var(--color-primary);">404</h1>
+    <p style="font-size: 18px; color: var(--color-text-light); margin: 16px 0 32px;">Page not found</p>
+    <a href="/" style="font-size: 16px;">&larr; Back to Home</a>
   </div>
 </BaseLayout>

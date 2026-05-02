@@ -1,5 +1,5 @@
 ---
-import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
@@ -25,26 +25,29 @@ export async function getStaticPaths() {
 
 const { post, prevPost, nextPost } = Astro.props;
 const { Content, headings } = await render(post);
-
-// Read raw file for word count (use process.cwd() to find source files)
-const filePath = resolve(process.cwd(), 'src', 'content', 'blog', post.id);
-const rawContent = readFileSync(filePath, 'utf-8');
-
-// Calculate word count (Chinese chars + English words)
-const chineseChars = (rawContent.match(/[\u4e00-\u9fff]/g) || []).length;
-const englishWords = rawContent.replace(/[\u4e00-\u9fff]/g, '').trim().split(/\s+/).filter(Boolean).length;
-const wordCount = chineseChars + englishWords;
 ---
 
-<BlogPostLayout
-  title={post.data.title}
-  date={post.data.date}
-  tags={post.data.tags}
-  description={post.data.description}
-  headings={headings}
-  wordCount={wordCount}
-  prevPost={prevPost}
-  nextPost={nextPost}
->
-  <Content />
-</BlogPostLayout>
+<BaseLayout title={`${post.data.title} - dalong`} description={post.data.description}>
+  <div class="article-header">
+    <h1 class="article-title">{post.data.title}</h1>
+    <p class="article-meta">
+      {post.data.date.toISOString().split('T')[0]}
+      {post.data.tags.length > 0 && (
+        <span> · {post.data.tags.join(', ')}</span>
+      )}
+    </p>
+  </div>
+
+  <div class="article-body">
+    <Content />
+  </div>
+
+  <div class="article-nav">
+    {prevPost && (
+      <a href={`/blog/${prevPost.slug}`}>&larr; {prevPost.title}</a>
+    )}
+    {nextPost && (
+      <a href={`/blog/${nextPost.slug}`}>{nextPost.title} &rarr;</a>
+    )}
+  </div>
+</BaseLayout>

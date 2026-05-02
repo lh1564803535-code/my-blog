@@ -1,58 +1,59 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
-import Timeline from '../components/Timeline.astro';
-import SkillIcons from '../components/SkillIcons.astro';
-import SocialLinks from '../components/SocialLinks.astro';
-import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
-const about = await getEntry('about', 'index');
-const { Content } = await render(about);
+const skills = [
+  'HTML', 'CSS', 'JavaScript', 'TypeScript',
+  'React', 'Vue', 'Astro', 'Tailwind',
+  'Node.js', 'Python', 'Git', 'Docker'
+];
 
-const timelineItems = [
-  { period: '2026.05 - 至今', title: 'Software Engineer', description: '当前的工作职位描述' },
-  { period: '2024.06 - 2026.04', title: 'Frontend Developer', description: '之前的工作经历' },
-  { period: '2020.09 - 2024.06', title: 'Computer Science, University', description: '教育背景' },
+const timeline = [
+  { date: '2026.05 - 至今', title: 'Software Engineer', desc: 'Current position' },
+  { date: '2024.06 - 2026.04', title: 'Frontend Developer', desc: 'Previous experience' },
+  { date: '2020.09 - 2024.06', title: 'Computer Science', desc: 'University education' },
 ];
 ---
 
-<PageLayout title="About - dalong">
-  <div style="padding-top: 2rem;">
-    <!-- Two Column Layout -->
-    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; margin-bottom: 3rem; align-items: start;">
-      <!-- Left: Bio -->
-      <div class="prose">
-        <Content />
-      </div>
+<BaseLayout title="About - dalong" activeNav="about">
+  <div class="about-content">
+    <h2>关于我</h2>
+    <p>
+      我是一名热衷于用户体验设计和前端开发的工程师。从大学时期第一次接触 HTML 开始，
+      就对「用代码创造东西」这件事充满了热情。过去的几年里，我一直在探索如何将设计思维
+      与技术实现完美结合。
+    </p>
+    <p>
+      我相信好的产品不是功能的堆砌，而是对用户需求的深刻理解和精准回应。无论是构建一个
+      复杂的 Web 应用，还是设计一个简单的交互流程，我都会从「用户要完成什么」这个问题出发。
+    </p>
+    <p>
+      工作之余，我喜欢阅读技术博客、参与开源项目、探索新的工具和框架。我认为分享是学习
+      最好的方式，这也是我搭建这个博客的初衷——把我知道的分享出去，帮助更多的人。
+    </p>
 
-      <!-- Right: Skills -->
-      <div>
-        <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">技能栈</h3>
-        <SkillIcons />
-      </div>
+    <h2>技能栈</h2>
+    <div class="skill-grid">
+      {skills.map((skill) => (
+        <div class="skill-item">{skill}</div>
+      ))}
     </div>
 
-    <!-- Timeline -->
-    <div style="margin-bottom: 3rem;">
-      <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1.5rem;">经历</h3>
-      <Timeline items={timelineItems} />
+    <h2>经历</h2>
+    <div class="timeline">
+      {timeline.map((item) => (
+        <div class="timeline-item">
+          <div class="timeline-date">{item.date}</div>
+          <div><strong>{item.title}</strong></div>
+          <div style="color: var(--color-text-light); font-size: 14px;">{item.desc}</div>
+        </div>
+      ))}
     </div>
 
-    <!-- Contact -->
-    <div>
-      <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">联系方式</h3>
-      <SocialLinks
-        github="https://github.com/lh1564803535-code"
-        twitter="https://x.com/lh1564803535-code"
-        email="lh1564803535@gmail.com"
-      />
-    </div>
+    <h2>联系方式</h2>
+    <p>
+      <a href="https://github.com/lh1564803535-code" target="_blank">GitHub</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:lh1564803535@gmail.com">Email</a>
+    </p>
   </div>
-
-  <style>
-    @media (max-width: 768px) {
-      div[style*="grid-template-columns: 2fr 1fr"] {
-        grid-template-columns: 1fr !important;
-      }
-    }
-  </style>
-</PageLayout>
+</BaseLayout>

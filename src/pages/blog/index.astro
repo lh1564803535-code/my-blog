@@ -1,69 +1,41 @@
 ---
-import PageLayout from '../../layouts/PageLayout.astro';
-import SearchBar from '../../components/SearchBar.astro';
-import TagFilter from '../../components/TagFilter.astro';
-import Pagination from '../../components/Pagination.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 
-// Get all unique tags
 const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
 
-// Pagination
 const POSTS_PER_PAGE = 10;
 const page = Number(Astro.url.searchParams.get('page')) || 1;
 const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
 const posts = allPosts.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE);
 ---
 
-<PageLayout title="Blog - dalong">
-  <div style="padding-top: 2rem;">
-    <!-- Header -->
-    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-      <h1 style="font-size: 2rem; font-weight: 700;">Blog</h1>
-      <div style="flex: 1; max-width: 300px;">
-        <SearchBar placeholder="Search posts..." />
-      </div>
-    </div>
-
-    <!-- Tag Filter -->
-    <div style="margin-bottom: 1.5rem;">
-      <TagFilter tags={allTags} />
-    </div>
-
-    <!-- Post List -->
-    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-      {posts.map((post, index) => (
-        <a
-          href={`/blog/${post.id.replace(/\.md$/, '')}`}
-          data-blog-card
-          data-title={post.data.title}
-          data-description={post.data.description}
-          data-tags={post.data.tags.join(',')}
-          data-slug={post.id.replace(/\.md$/, '')}
-          class="card-animate"
-          style={`display: block; padding: 1.5rem; background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: 12px; text-decoration: none; color: var(--color-text-primary); transition: all 0.15s; animation-delay: ${index * 80}ms;`}
-          onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='var(--color-accent)'"
-          onmouseout="this.style.transform=''; this.style.borderColor='var(--color-border)'"
-        >
-          <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
-            <h2 style="font-size: 1.25rem; font-weight: 600;">{post.data.title}</h2>
-            <span style="color: var(--color-text-secondary); font-size: 0.8rem;">{post.data.date.toISOString().split('T')[0]}</span>
-          </div>
-          <p style="color: var(--color-text-secondary); font-size: 0.9rem; margin-top: 0.5rem; line-height: 1.6;">{post.data.description}</p>
-          <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap;">
-            {post.data.tags.map((tag) => (
-              <span style="background: var(--color-bg-secondary); color: var(--color-accent); padding: 0.2rem 0.6rem; border-radius: 8px; font-size: 0.7rem;">{tag}</span>
-            ))}
-          </div>
-        </a>
-      ))}
-    </div>
-
-    <!-- Pagination -->
-    <Pagination currentPage={page} totalPages={totalPages} />
+<BaseLayout title="Archives - dalong" activeNav="archives">
+  <div style="margin-bottom: 24px;">
+    {allTags.map((tag) => (
+      <span class="tag">{tag}</span>
+    ))}
   </div>
-</PageLayout>
+
+  {posts.map((post, index) => (
+    <div class="post-item">
+      <p class="post-title">
+        <a href={`/blog/${post.id.replace(/\.md$/, '')}`}>{post.data.title}</a>
+      </p>
+      <p class="post-meta">Posted at {post.data.date.toISOString().split('T')[0]}</p>
+      <p class="post-excerpt">{post.data.description}</p>
+    </div>
+  ))}
+
+  {totalPages > 1 && (
+    <div class="pagination">
+      {page > 1 && <a href={`?page=${page - 1}`}>&laquo; Prev</a>}
+      <span>Page {page} / {totalPages}</span>
+      {page < totalPages && <a href={`?page=${page + 1}`}>Next &raquo;</a>}
+    </div>
+  )}
+</BaseLayout>

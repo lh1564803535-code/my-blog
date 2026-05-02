@@ -1,6 +1,5 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
-import ProjectCard from '../components/ProjectCard.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const allProjects = (await getCollection('projects')).sort((a, b) => {
@@ -10,29 +9,22 @@ const allProjects = (await getCollection('projects')).sort((a, b) => {
 });
 ---
 
-<PageLayout title="Projects - dalong">
-  <div style="padding-top: 2rem;">
-    <h1 style="font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem;">Projects</h1>
-
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
-      {allProjects.map((project) => (
-        <ProjectCard
-          name={project.data.name}
-          description={project.data.description}
-          tags={project.data.tags}
-          github={project.data.github}
-          demo={project.data.demo}
-          featured={project.data.featured}
-        />
-      ))}
+<BaseLayout title="Projects - dalong" activeNav="projects">
+  {allProjects.map((project) => (
+    <div class="project-item">
+      <p class="project-name">{project.data.name}</p>
+      <p class="project-desc">{project.data.description}</p>
+      <div class="project-links">
+        {project.data.github && (
+          <a href={project.data.github} target="_blank" rel="noopener">GitHub</a>
+        )}
+        {project.data.demo && (
+          <a href={project.data.demo} target="_blank" rel="noopener">Demo</a>
+        )}
+        {project.data.tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
     </div>
-  </div>
-
-  <style>
-    @media (max-width: 768px) {
-      div[style*="grid-template-columns: repeat(2"] {
-        grid-template-columns: 1fr !important;
-      }
-    }
-  </style>
-</PageLayout>
+  ))}
+</BaseLayout>
