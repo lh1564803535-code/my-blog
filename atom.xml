@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>dalong's blog</title>
+  <link href="https://lh1564803535-code.github.io/my-blog/atom.xml" rel="self"/>
+  <link href="https://lh1564803535-code.github.io/my-blog/"/>
+  <updated>2026-05-01T00:00:00.000Z</updated>
+  <id>https://lh1564803535-code.github.io/my-blog/</id>
+  <author>
+    <name>dalong</name>
+  </author>
+  <entry>
+    <title>Hello World：我的第一篇博客</title>
+    <link href="https://lh1564803535-code.github.io/my-blog/2026/05/01/hello-world/"/>
+    <id>https://lh1564803535-code.github.io/my-blog/2026/05/01/hello-world/</id>
+    <published>2026-05-01T00:00:00.000Z</published>
+    <updated>2026-05-01T00:00:00.000Z</updated>
+    <summary type="html">搭建个人博客的初衷和过程记录</summary>
+  </entry>
+  <entry>
+    <title>Astro 框架快速上手指南</title>
+    <link href="https://lh1564803535-code.github.io/my-blog/2026/04/28/astro-guide/"/>
+    <id>https://lh1564803535-code.github.io/my-blog/2026/04/28/astro-guide/</id>
+    <published>2026-04-28T00:00:00.000Z</published>
+    <updated>2026-04-28T00:00:00.000Z</updated>
+    <summary type="html">从零开始搭建 Astro 项目的完整流程</summary>
+  </entry>
+  <entry>
+    <title>Markdown 排版演示</title>
+    <link href="https://lh1564803535-code.github.io/my-blog/2026/04/25/markdown-demo/"/>
+    <id>https://lh1564803535-code.github.io/my-blog/2026/04/25/markdown-demo/</id>
+    <published>2026-04-25T00:00:00.000Z</published>
+    <updated>2026-04-25T00:00:00.000Z</updated>
+    <summary type="html">展示博客中各种 Markdown 元素的渲染效果</summary>
+  </entry>
+</feed>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<title>Markdown 排版演示 - dalong's blog</title>
+<meta name="description" content="展示博客中各种 Markdown 元素的渲染效果">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="short icon" href="/images/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/blog_basic.css">
+</head>
+<body>
+<div class="container" id="stage">
+<div class="row">
+<div class="col-sm-3 col-xs-12 side-container invisible" id="side-bar">
+<div class="vertical-text site-title">
+<h3 class="site-title-small" tabindex="-1"><a class="a-title" href="/">dalong's blog</a></h3>
+<h1 class="site-title-large" tabindex="-1"><a class="a-title" href="/">保持思考｜记录｜分享</a></h1>
+</div>
+<br class="visible-lg visible-md visible-sm">
+<div class="site-title-links" id="site-nav">
+<ul>
+<li><a class="current" href="/">Home</a></li>
+<li><a href="/archives">Archive</a></li>
+<li><a href="/about">About</a></li>
+<li class="soc"><a href="https://github.com/lh1564803535-code" target="_blank" rel="noopener noreferrer" aria-label="Github"><i class="fa fa-github">&nbsp;</i></a></li>
+</ul>
+<div class="visible-lg visible-md visible-sm site-nav-footer">
+<br class="site-nav-footer-br">
+<footer>
+<p>&copy;&nbsp;2026&nbsp;<a target="_blank" href="https://lh1564803535-code.github.io/my-blog/">dalong</a></p>
+<p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p>
+</footer>
+</div>
+</div>
+</div>
+<div class="col-sm-9 col-xs-12 main-container invisible" id="main-container">
+<div class="autopagerize_page_element">
+<div class="content">
+<div class="post-page">
+<div class="post-container">
+<p class="post-title"><a>Markdown 排版演示</a></p>
+<p class="post-meta"><span class="date meta-item">Posted at&nbsp;2026-04-25</span></p>
+<div class="post-content">
+<p>这篇文章用来展示博客中各种 Markdown 元素的渲染效果。</p>
+<h2 id="文本样式">文本样式</h2>
+<p>这是<strong>粗体文本</strong>，这是<em>斜体文本</em>，这是<code>行内代码</code>，这是~~删除线~~。</p>
+<h2 id="引用">引用</h2>
+<blockquote><p>设计不是为了让事物看起来更美，而是为了让人们的生活变得更好。<br>—— 某位伟大的设计师</p></blockquote>
+<h2 id="表格">表格</h2>
+<table>
+<thead><tr><th>技术</th><th>用途</th><th>难度</th></tr></thead>
+<tbody>
+<tr><td>Astro</td><td>静态网站</td><td>⭐⭐</td></tr>
+<tr><td>Tailwind CSS</td><td>样式系统</td><td>⭐⭐</td></tr>
+<tr><td>TypeScript</td><td>类型安全</td><td>⭐⭐⭐</td></tr>
+</tbody>
+</table>
+<h2 id="代码块">代码块</h2>
+<h3 id="javascript">JavaScript</h3>
+<pre><code>async function fetchData(url) {
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+}
+</code></pre>
+<h3 id="python">Python</h3>
+<pre><code>from dataclasses import dataclass
+
+@dataclass
+class BlogPost:
+    title: str
+    date: str
+    tags: list[str]
+
+    def summary(self, max_len: int = 80) -> str:
+        return self.title[:max_len]
+</code></pre>
+<h3 id="css">CSS</h3>
+<pre><code>.card {
+  background: var(--color-bg-card);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: transform 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+</code></pre>
+<h2 id="链接">链接</h2>
+<p>访问 <a href="https://docs.astro.build">Astro 官方文档</a> 了解更多。</p>
+<h2 id="有序列表">有序列表</h2>
+<ol>
+<li>选择你的技术栈</li>
+<li>搭建项目框架</li>
+<li>编写内容</li>
+<li>部署上线</li>
+<li>持续迭代</li>
+</ol>
+<p>这篇文章基本涵盖了 Markdown 中常用的元素。如果你的博客也支持这些排版，那么你已经有了一套完整的内容写作工具。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="visible-xs site-bottom-footer">
+<footer>
+<p>&copy;&nbsp;2026&nbsp;<a target="_blank" href="https://lh1564803535-code.github.io/my-blog/">dalong</a></p>
+<p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p>
+</footer>
+</div>
+</div>
+</div>
+<script src="/js/jquery-3.1.0.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/jquery.appear.js"></script>
+<script src="/js/typography.js"></script>
+</body>
+</html>
