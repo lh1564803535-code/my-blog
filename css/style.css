@@ -273,3 +273,29 @@ figure .code pre { border-bottom-left-radius: 0; border-top-left-radius: 0; bord
   .site-nav-footer { display: none !important }
   .site-bottom-footer { display: block !important }
 }
+
+/* === Dark Mode (JS toggle via body.dark-mode) === */
+body.dark-mode {
+  background-color: #0f172a;
+  background-image: linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);
+  color: #e2e8f0;
+}
+body.dark-mode html, body.dark-mode span, body.dark-mode p,
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3,
+body.dark-mode h4, body.dark-mode h5, body.dark-mode h6 { color: #e2e8f0 }
+body.dark-mode a { color: #60a5fa; border-bottom-color: #60a5fa }
+body.dark-mode a:hover { color: #0f172a !important; background-color: #93c5fd }
+body.dark-mode .site-title { border-left-color: #60a5fa }
+body.dark-mode .site-title:hover { color: #0f172a !important; background: #e2e8f0 !important }
+body.dark-mode .site-title::after { background: radial-gradient(circle,#60a5fa 2px,transparent 2px) 0 0 / 8px 4px no-repeat }
+body.dark-mode .site-title-links a { border-bottom-color: #60a5fa }
+body.dark-mode .current { border-bottom-color: #60a5fa !important }
+body.dark-mode footer { color: #94a3b8 }
+body.dark-mode footer a { color: #94a3b8 }
+body.dark-mode .post-meta { color: #94a3b8 }
+body.dark-mode .post-abstract { color: #94a3b8 }
+body.dark-mode .block-hash { color: #94a3b8 }
+body.dark-mode .post-container + .post-container::before { color: #94a3b8 }
+body.dark-mode .soc a:hover { color: #93c5fd !important }
+body.dark-mode .dark-toggle { color: #94a3b8 !important; border-bottom: none !important }
+body.dark-mode .dark-toggle:hover { color: #60a5fa !important }

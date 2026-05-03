@@ -12,7 +12,10 @@
     11|<meta content="telephone=no" name="format-detection">
     12|<meta name="renderer" content="webkit">
     13|<link rel="short icon" href="/my-blog/images/favicon.png" type="image/x-icon">
-    14|<link rel="stylesheet" href="/my-blog/css/bootstrap.min.css">
+    14|<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/my-blog/css/bootstrap.min.css">
     15|<link rel="stylesheet" href="/my-blog/css/font-awesome.min.css">
     16|<link rel="stylesheet" href="/my-blog/css/style.css">
 <link rel="stylesheet" href="/my-blog/css/style-dark.css" media="(prefers-color-scheme: dark)">
@@ -113,5 +116,16 @@
    110|<script src="/my-blog/js/jquery-migrate-1.2.1.min.js"></script>
    111|<script src="/my-blog/js/jquery.appear.js"></script>
    112|<script src="/my-blog/js/typography.js"></script>
-   113|</body>
+   113|<script>
+function toggleDark() {
+  document.body.classList.toggle('dark-mode');
+  localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+}
+(function() {
+  if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.body.classList.add('dark-mode');
+  }
+})();
+</script>
+</body>
    114|</html>

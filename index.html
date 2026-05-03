@@ -13,6 +13,9 @@
 <meta content="telephone=no" name="format-detection">
 <meta name="renderer" content="webkit">
 <link rel="short icon" href="/my-blog/images/favicon.png" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/my-blog/css/bootstrap.min.css">
 <link rel="stylesheet" href="/my-blog/css/font-awesome.min.css">
 <link rel="stylesheet" href="/my-blog/css/style.css">
@@ -42,6 +45,7 @@
 <p>&copy;&nbsp;2026&nbsp;<a target="_blank" href="https://lh1564803535-code.github.io/my-blog/">dalong</a></p>
 <p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p>
 <p>Proudly published with&nbsp;<a target="_blank" href="https://github.com" rel="noopener noreferrer">GitHub Pages</a></p>
+<p><a href="javascript:void(0)" class="dark-toggle" onclick="toggleDark()" style="cursor:pointer;border:none;font-size:12px;">🌓 暗色模式</a></p>
 </footer>
 </div>
 </div>
@@ -72,6 +76,7 @@
 <p>&copy;&nbsp;2026&nbsp;<a target="_blank" href="https://lh1564803535-code.github.io/my-blog/">dalong</a></p>
 <p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p>
 <p>Proudly published with&nbsp;<a target="_blank" href="https://github.com" rel="noopener noreferrer">GitHub Pages</a></p>
+<p><a href="javascript:void(0)" class="dark-toggle" onclick="toggleDark()" style="cursor:pointer;border:none;font-size:12px;">🌓 暗色模式</a></p>
 </footer>
 </div>
 </div>
@@ -82,5 +87,16 @@
 <script src="/my-blog/js/jquery.appear.js"></script>
 <script src="/my-blog/js/google-analytics.js"></script>
 <script src="/my-blog/js/typography.js"></script>
+<script>
+function toggleDark() {
+  document.body.classList.toggle('dark-mode');
+  localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+}
+(function() {
+  if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.body.classList.add('dark-mode');
+  }
+})();
+</script>
 </body>
 </html>
