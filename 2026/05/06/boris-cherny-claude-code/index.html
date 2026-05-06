@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="dalong">
+<title>Boris Cherny 和 Claude Code：AI 编程的下一阶段 - dalong's blog</title>
+<meta name="description" content="从一场采访看 AI 编程工具的演进路径与软件工程的重心转移">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="short icon" href="/my-blog/images/favicon.png" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/my-blog/css/bootstrap.min.css">
+<link rel="stylesheet" href="/my-blog/css/font-awesome.min.css">
+<link rel="stylesheet" href="/my-blog/css/style.css">
+<link rel="stylesheet" href="/my-blog/css/style-dark.css" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="/my-blog/css/notes.css">
+<link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/my-blog/atom.xml">
+</head>
+<body>
+<div class="container" id="stage">
+<div class="row">
+<div class="col-sm-3 col-xs-12 side-container invisible" id="side-bar">
+<div class="vertical-text site-title">
+<h3 class="site-title-small" tabindex="-1"><a class="a-title" href="/my-blog/">dalong's blog</a></h3>
+<h1 class="site-title-large" tabindex="-1"><a class="a-title" href="/my-blog/">保持思考｜记录｜分享</a></h1>
+</div>
+<br class="visible-lg visible-md visible-sm">
+<div class="site-title-links" id="site-nav">
+<ul>
+<li><a href="/my-blog/">Home</a></li>
+<li><a href="/my-blog/archives">Archive</a></li>
+<li><a href="/my-blog/about">About</a></li>
+<li class="soc"><a href="https://github.com/lh1564803535-code" target="_blank" rel="noopener noreferrer" aria-label="Github"><i class="fa fa-github">&nbsp;</i></a></li>
+</ul>
+<div class="visible-lg visible-md visible-sm site-nav-footer">
+<br class="site-nav-footer-br">
+<footer>
+<p>&copy;&nbsp;2026&nbsp;<a target="_blank" href="https://lh1564803535-code.github.io/my-blog/">dalong</a></p>
+<p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p>
+</footer>
+</div>
+</div>
+</div>
+<div class="col-sm-9 col-xs-12 main-container invisible" id="main-container">
+<div class="autopagerize_page_element">
+<div class="content">
+<div class="post-page">
+<div class="post-container">
+<p class="post-title"><a>Boris Cherny 和 Claude Code：AI 编程的下一阶段</a></p>
+<p class="post-meta"><span class="date meta-item">Posted at&nbsp;2026-05-06</span> <span class="block-hash">#e9c4a1</span></p>
+<div class="post-content">
+<p>前几天我又把 Boris Cherny 那场关于 Claude Code 的访谈翻出来看了一遍。</p>
+<p>越看越觉得，这不是一场普通的产品访谈。它更像一份 AI 编程时代的路线图。你能从里面看到 Claude Code 怎么长出来，Anthropic 怎么押注，Cursor 为什么会成为对照组，以及 Boris 为什么会说出那句很有争议的话：</p>
+<p><strong>编程问题，已经被解决了。</strong></p>
+<p>这句话很刺耳。但如果你把整场采访串起来看，它其实不是在说"程序员没用了"，而是在说：软件工程的重心正在从"写代码"转向"组织智能"。</p>
+<p>这才是 Claude Code 真正值得写的地方。</p>
+<h2 id="最反直觉的地方">先说最反直觉的地方：Claude Code 不是从"伟大设计"开始的</h2>
+<p>很多人现在回头看 Claude Code，会觉得它像一个非常顺理成章的产品。终端、Agent、代码库、自动执行、工作流编排——一切都好像天生该这么长。</p>
+<p>但 Boris 的讲法不是这样。</p>
+<p>Claude Code 最早其实只是一个很简单的终端原型。没有特别复杂的前端，没有先做一套看起来很"完整"的 AI IDE 逻辑，甚至可以说，它一开始并不是一个被精心设计出来的"大产品"。</p>
+<p>它更像是先把最小可行的形态做出来，然后不断试、不断改、不断删。</p>
+<p>这件事很重要。因为它解释了为什么 Claude Code 会长成今天这个样子：不是因为团队一开始就知道答案，而是因为他们持续顺着模型能力往前推。</p>
+<p>Boris 的产品哲学，和很多传统软件团队很不一样。他不是先画一个理想蓝图，再让团队死磕实现。他的思路更像是：先把工具放出来，让它进入真实工作流，看模型现在到底能做什么，再决定哪些功能该留，哪些该删。</p>
+<p>这是一种很 AI 原生的思路。不是"人先定义好一切"，而是"模型能力在推动产品边界往前走"。</p>
+<h2 id="为什么会爆">Claude Code 为什么会爆：不是因为它像 IDE，而是因为它不像 IDE</h2>
+<p>Claude Code 最值得注意的一点，是它没有一开始就往"更漂亮的 IDE"方向卷。</p>
+<p>今天 AI 编程工具很多，Cursor、Copilot、Windsurf、Kiro……大家都在争谁更像一个"聪明的编辑器"。但 Claude Code 的路径更偏向另一边：它不是把 AI 塞进编辑器，而是把你从编辑器里拉出来，放到更高一层的任务组织位置上。</p>
+<p>这就是它和 Cursor 最有意思的区别：</p>
+<ul>
+<li>Cursor 更像"AI 进入编辑器"，Claude Code 更像"AI 接管工作流"</li>
+<li>Copilot 更像"持续补全"，Claude Code 更像"代理执行"</li>
+</ul>
+<p>从采访里你能感觉到，Boris 对这种区别是很清楚的。他并不执着于做一个"看起来最像传统开发工具"的东西。相反，他更愿意顺着模型的长处去做：让它能更主动地理解任务、拆任务、改任务、验证任务。</p>
+<p>所以 Claude Code 的爆发不是偶然。它吃到的不是"一个更好看的 UI"红利，而是 Agent 化工作流这条路上的早期窗口。</p>
+<p>这也是为什么它会被反复提到：短短时间内，它已经变成一个会影响软件工程分工的工具，而不只是一个写代码助手。</p>
+<h2 id="编程问题已解决">Boris 说"编程问题已经解决了"，到底是什么意思</h2>
+<p>这句话很容易被误解。</p>
+<p>如果你把它理解成"以后不用程序员了"，那就太浅了。Boris 真正想表达的，应该是另一层意思：</p>
+<p><strong>编程作为"把想法变成机器可执行逻辑"的问题，已经不再是核心瓶颈了。</strong></p>
+<p>过去，软件行业最大的成本之一，是人要亲自写下大量机械性代码。但现在，Claude Code 这样的工具已经能承担相当大一部分生成、重构、修补、调试、整理的工作。</p>
+<p>那问题就来了：如果"写代码"越来越便宜，真正贵的是什么？</p>
+<p>答案变成了：你会不会定义清晰目标，你会不会把复杂任务拆成可执行步骤，你会不会判断 AI 给出的结果是否靠谱，你会不会设计人和 AI 的协作方式。</p>
+<p>换句话说，程序员的价值正在从"打字的人"转向"设定约束的人"。这就是 Boris 这句话真正的锋利之处。他不是在说编程消失了，而是在说编程的价值链条已经往上移动了。</p>
+<h2 id="产品原则">Claude Code 的产品原则，很反直觉，但非常 Anthropic</h2>
+<p>这场采访里最有意思的，不是某个具体功能，而是背后那套产品观。</p>
+<p>Boris 的很多判断都有一个共同点：不要替未来模型做过度复杂的包装。</p>
+<p>这很 Anthropic。也很像他们对 Claude Code 的整体风格：少做无意义的 scaffold，少堆很重的人类流程，少把模型锁在旧式交互里，多保留灵活性，多让产品跟着模型能力演化。</p>
+<p>这背后其实是一个很深的判断：<strong>AI 产品不是静态软件，它是动态系统。</strong></p>
+<p>传统软件里，功能设计好了，往往能用很多年。但 AI 产品不是。今天你觉得必须靠人工补的一层流程，半年后可能就被模型能力吃掉了。今天你觉得必须显式提示的东西，半年后可能会变成模型自发完成的动作。</p>
+<p>所以 Boris 和 Anthropic 的逻辑很像：不要太早把产品做死。这也是为什么 Claude Code 的形态会显得这么"克制"——因为克制本身就是一种策略：它给未来模型留空间。</p>
+<h2 id="cli终端形态">为什么 CLI/终端形态，反而更适合 Agent</h2>
+<p>很多人一开始看到 Claude Code，会觉得："都 2025 年了，为什么还要做终端工具？为什么不做成更现代的 GUI？"</p>
+<p>但这恰恰是它最聪明的地方之一。终端不是老派，终端是任务感最强的界面。它天然适合：接收明确命令，处理上下文，连续执行多步任务，输出可追踪结果。</p>
+<p>而 Agent 型产品最怕的，就是在"人很难理解 AI 到底在干嘛"的界面里失控。终端至少给了你一种心理预期：我发出指令，它执行，我看输出，决定下一步。</p>
+<p>这比某些"看起来很未来"的花哨界面更实用。因为 Claude Code 的目标不是让你觉得酷，而是让你真的把活干掉。</p>
+<p>也正因为如此，Claude Code 和 Cursor 才像两种不同路线：Cursor 在编辑器内部争夺注意力，Claude Code 在任务层上争夺控制权。这两条路都成立，但它们对应的是两种不同的未来。</p>
+<h2 id="ai协作层">Claude Code 和 Cowork：AI 不只是帮你写代码，而是开始参与"协作"</h2>
+<p>一旦从 Claude Code 往外看，就会发现 Boris 和 Anthropic 讨论的已经不是单纯的"代码辅助"，而是更广义的 AI 协作。</p>
+<p>这意味着什么？意味着 AI 不再只是一个工具。它开始变成一种工作中间层：帮你理解任务，帮你拆解工作，帮你协调步骤，帮你在团队里减少摩擦。</p>
+<p>Claude Code 更像执行层，Cowork 更像协作层。一个偏"做"，一个偏"配合人做"。这个分层特别关键。因为它说明 Anthropic 并没有把 AI 编程局限在"写代码更快"这件事上。他们想做的是把 AI 变成一种新的工作组织方式。</p>
+<p>而这件事，才是真正会改变软件工程的地方。</p>
+<h2 id="为什么回来">Boris 为什么会短暂离开 Anthropic 又回来</h2>
+<p>采访里提到他短暂去 Cursor 又回到 Anthropic，这一段很能说明问题。这不是一个简单的"跳槽故事"，它更像是 AI 编程赛道内部的一次现实检验：Cursor 代表的是另一种产品路径，Anthropic 代表的是另一种技术和组织资源，而 Boris 最后还是回到了自己更认可的地方。</p>
+<p>这说明什么？说明 AI 编程工具这件事，不只是产品设计问题，也不只是市场问题。它还涉及模型能力归属，组织资源密度，研究与产品的耦合方式，团队对未来的共同判断。</p>
+<p>换句话说，Claude Code 这种东西，不是一个单独团队拿着某个灵感就能长期打磨出来的。它需要的是整个 Anthropic 的模型、研究、产品、工程体系一起支撑。</p>
+<h2 id="无限资源">为什么给团队更多资源，反而能做出更好的 AI 产品</h2>
+<p>这个观点听起来有点反直觉。因为很多创业叙事都喜欢说"资源越少越专注"。</p>
+<p>但在 AI 产品里，这件事未必成立。原因很简单：AI 产品不是只做一个功能，它往往是在不断试模型、试交互、试工作流、试边界。如果资源太少，团队很容易只能做"局部最优"；但如果资源足够，团队可以并行试很多方向，然后迅速删掉不成立的部分。</p>
+<p>这跟传统软件不一样。传统软件很多时候追求稳定和复用。AI 产品更像持续实验。</p>
+<p>所以 Boris 说"给团队更多资源"，本质上是在说：<strong>AI 产品开发更像研究型工程，不是单线条的产品打磨。</strong></p>
+<p>这也解释了为什么 Anthropic 这种公司在做 Claude Code 时，会显得动作很快，但又不是那种粗糙的快。它更像是"用足够资源去换迭代速度"。</p>
+<h2 id="新成员三条原则">新成员的三条原则，本质上是在规定 Anthropic 的 AI 工作方式</h2>
+<p>采访里说到 Boris 给新成员的三条原则，这个地方很值得写，因为它其实是 Claude Code 文化的一部分。核心精神大体都绕不开几件事：让 AI 真正参与工作，以结果和速度为导向，不要被旧有软件习惯绑死。</p>
+<p>这不是普通公司文化话术。它其实是在告诉新成员：你不是来维护旧系统的，你是来适应一个新工作范式的。</p>
+<p>这也正是 Claude Code 最核心的东西。它不是一个工具团队，它是在摸索"AI 介入软件工程之后，人的角色该怎么变"。</p>
+<h2 id="两点反驳">这里我想反驳两点</h2>
+<p><strong>反驳一：编程已经"解决了"吗？</strong></p>
+<p>我觉得不能这么绝对。更准确地说，生成代码的问题被极大缓解了，但软件工程远没被解决。因为真正难的从来不只是"写出语法正确的代码"，而是：需求定义，系统边界，测试验证，维护成本，跨团队协作，安全与可靠性。</p>
+<p>Claude Code 让"写代码"这件事便宜了很多。但这不等于软件问题整体被解决。它只是把难点从低层移到了更高层。所以 Boris 这句话更像一个方向判断，而不是一个终局判断。</p>
+<p><strong>反驳二：无限资源一定能做出更好的 AI 产品吗？</strong></p>
+<p>也不一定。资源多，确实能带来更多试验空间。但如果方向不对，资源多也可能意味着更慢的决策，更复杂的组织，更容易堆出无效功能。</p>
+<p>所以"无限资源"真正有效的前提是：方向足够清楚，团队足够克制。Claude Code 之所以看起来强，不是因为它只是"钱多"，而是 Anthropic 在模型、产品、团队判断上，刚好形成了一种比较一致的节奏。</p>
+<h2 id="判断框架">这场采访最大的价值，不是信息量，而是它给了你一个判断框架</h2>
+<p>如果只看表面，这场采访讲的是：Claude Code 怎么做出来的，它为什么增长快，Boris 怎么看编程，Anthropic 怎么做 AI 产品。</p>
+<p>但真正往深了看，它其实在讲一个更大的问题：当 AI 开始真的进入工作流，软件工程的中心会往哪移？</p>
+<p>Boris 的答案很明确：往任务组织、往协作层、往人和 AI 的边界管理上移。</p>
+<p>这也是为什么 Claude Code 值得持续关注。它不是一个单点产品，而是一个信号。它告诉你，AI 编程工具已经不是"有没有 AI"的阶段了，而是进入了"谁更会组织智能"的阶段。</p>
+<h2 id="结尾">结尾</h2>
+<p>我现在越来越觉得，Claude Code 这类产品最可怕的地方，不是它能写多少代码，而是它让你开始重新理解"写代码"这件事本身。</p>
+<p>当一个工具开始让你思考：人到底该做什么，AI 到底该做什么，工作流应该怎么变，团队应该怎么组织……它就已经不只是工具了。它是在改行业的默认答案。</p>
+<p>而 Boris Cherny 这场采访，厉害就厉害在这里：它没有用太多夸张的词，却把这条路讲得很清楚。</p>
+<p><strong>Claude Code 不是一个功能，它是一种新的软件工程姿势。</strong></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="visible-xs site-bottom-footer">
+<footer>
+<p>&copy;&nbsp;2026&nbsp;<a target="_blank" href="https://lh1564803535-code.github.io/my-blog/">dalong</a></p>
+<p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p>
+</footer>
+</div>
+</div>
+</div>
+<script src="/my-blog/js/jquery-3.1.0.min.js"></script>
+<script src="/my-blog/js/bootstrap.min.js"></script>
+<script src="/my-blog/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/my-blog/js/jquery.appear.js"></script>
+<script src="/my-blog/js/typography.js"></script>
+<script>
+function toggleDark() {
+  document.body.classList.toggle('dark-mode');
+  localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+}
+(function() {
+  if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.body.classList.add('dark-mode');
+  }
+})();
+</script>
+</body>
+</html>
