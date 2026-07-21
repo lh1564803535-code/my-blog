@@ -1,9 +1,42 @@
 extends partial/layout
+
 block content
-	.autopagerize_page_element: .content
-		- page.posts.each(function (item) {
-			include mixins
-			+make_post(item, false)
-		- })
-		include mixins
-		+make_pager(__('prev'), __('next'))
+    - var lanes = [{ key: 'practice', name: '工程实践', path: 'practice/', kicker: '求职展示面', summary: 'SRE、云原生、Linux、监控告警、故障复盘、项目实践。', empty: '这里会持续更新我的 SRE 与云原生实战内容。' }, { key: 'thinking', name: '技术思考', path: 'thinking/', kicker: '判断力展示面', summary: '学习方法、职业发展、工程判断、行业观察、写作与表达。', empty: '这里会沉淀我对技术和职业的长期判断。' }, { key: 'life', name: '生活随记', path: 'life/', kicker: '人格展示面', summary: '周记、阅读、生活片段、阶段复盘，以及那些不适合塞进技术分类里的内容。', empty: '这里会记录我更松弛、更真实的日常。' }];
+    .home-hero.animated.fadeInDown
+        p.hero-kicker 三条内容线
+        h1.hero-title 把工程、思考和生活分开写清楚
+        p.hero-summary
+            | 这个博客现在围绕三个长期板块展开：
+            strong  工程实践
+            |  、 
+            strong 技术思考
+            |  、 
+            strong 生活随记
+            |  。这样既能服务 SRE / 云原生求职，也能保留你自己的判断和生活质感。
+    .lane-grid
+        each lane in lanes
+            - var lanePosts = site.posts.data.filter(function(post){ return post.categories && post.categories.data && post.categories.data.some(function(cat){ return cat.name === lane.name; }); }).sort(function(a, b){ return b.date - a.date; });
+            article.lane-card.animated.fadeInRight
+                p.lane-kicker= lane.kicker
+                h2.lane-title
+                    a.a-title(href=url_for(lane.path))= lane.name
+                p.lane-summary= lane.summary
+                if lanePosts.length
+                    p.lane-meta 最近更新
+                    ul.lane-mini-list
+                        each item, index in lanePosts
+                            if index < 3
+                                li
+                                    a(href=url_for(item.path))= item.title
+                else
+                    p.lane-empty= lane.empty
+                p.lane-action
+                    a(href=url_for(lane.path)) 查看这个板块
+    .home-section.animated.fadeInDown
+        p.section-title 最新文章
+        .autopagerize_page_element: .content
+            include mixins
+            - page.posts.each(function (item) {
+                +make_post(item, false)
+            - })
+            +make_pager(__('prev'), __('next'))

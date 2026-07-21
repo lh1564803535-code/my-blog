@@ -1,0 +1,33 @@
+extends partial/layout
+
+block site_title
+    != page.title + " | " + config.title
+
+block description
+    - var desc = page.desc || (page.title + ' - ' + config.description);
+    meta(name="description", content=desc)
+
+block content
+    - var laneName = page.lane_category || page.title;
+    - var lanePosts = site.posts.data.filter(function(post){ return post.categories && post.categories.data && post.categories.data.some(function(cat){ return cat.name === laneName; }); }).sort(function(a, b){ return b.date - a.date; });
+    .lane-page.animated.fadeInDown
+        p.hero-kicker= page.kicker || '内容板块'
+        h1.hero-title= page.title
+        if page.desc
+            p.hero-summary= page.desc
+        if page.focus && page.focus.length
+            ul.lane-focus-list
+                each item in page.focus
+                    li= item
+        if page.content
+            .lane-intro!= page.content
+        if lanePosts.length
+            p.section-title 文章列表
+            .content
+                include mixins
+                each item in lanePosts
+                    +make_post(item, false)
+        else
+            .lane-empty-state
+                p 这个板块还没有正式文章。
+                p 你可以先用“一键写文章”脚本创建第一篇。

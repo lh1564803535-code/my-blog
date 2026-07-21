@@ -49,27 +49,28 @@ mixin make_page_links()
 
 
 mixin make_pager()
-    - var prev = page.prev_link
-    - var next = page.next_link
-    .pagination.no-margin-bottom
-        p.clearfix
-            if theme.showPageCount
+    if page.total > 1
+        - var prev = page.prev_link
+        - var next = page.next_link
+        .pagination.no-margin-bottom
+            p.clearfix
+                if theme.showPageCount
+                    p
+                        != ' ' + __('PageNumber', page.current) + ' / ' + __('PageCount', page.total) + ' '
+                        | &nbsp;
                 p
-                    != ' ' + __('PageNumber', page.current) + ' / ' + __('PageCount', page.total) + ' '
-                    | &nbsp;
-            p
-                if page.prev
-                span.pre.pagbuttons
-                    i.fa.fa-angle-double-left
-                    | &nbsp;
-                    a(role="navigation",href=url_for(prev),aria-label= __('prev'))= __('prev')
+                    if page.prev
+                    span.pre.pagbuttons
+                        i.fa.fa-angle-double-left
+                        | &nbsp;
+                        a(role="navigation",href=url_for(prev),aria-label= __('prev'))= __('prev')
 
-                if page.next
-                span &nbsp;
-                span.next.pagbuttons
-                    a(role="navigation",href=url_for(next),aria-label=__('next'))= __('next')
-                    | &nbsp;
-                    i.fa.fa-angle-double-right
+                    if page.next
+                    span &nbsp;
+                    span.next.pagbuttons
+                        a(role="navigation",href=url_for(next),aria-label=__('next'))= __('next')
+                        | &nbsp;
+                        i.fa.fa-angle-double-right
 
 mixin postList()
     - var year = 0;

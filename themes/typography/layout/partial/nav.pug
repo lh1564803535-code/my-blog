@@ -6,26 +6,30 @@ div#site-nav.site-title-links
             else
                 a(href=config.root)= __('Home')
         li
+            if is_current('practice/')
+                a.current(href=url_for('practice/')) 工程实践
+            else
+                a(href=url_for('practice/')) 工程实践
+        li
+            if is_current('thinking/')
+                a.current(href=url_for('thinking/')) 技术思考
+            else
+                a(href=url_for('thinking/')) 技术思考
+        li
+            if is_current('life/')
+                a.current(href=url_for('life/')) 生活随记
+            else
+                a(href=url_for('life/')) 生活随记
+        li
             if is_archive()
                 a.current(href=config.root + config.archive_dir)= __('Archive')
             else
                 a(href=config.root + config.archive_dir)= __('Archive')
-        - if (site.categories.length > 0) {
         li
-            if is_current('categories/')
-                a.current(href=config.root + config.category_dir)= __('Categories')
+            if is_current('about/')
+                a.current(href=url_for('about/'))= __('About')
             else
-                a(href=config.root + config.category_dir)= __('Categories')
-        - }
-        - if (site.tags.length > 0) {
-        li
-            if is_current('tags/')
-                a.current(href=config.root + config.tag_dir)= __('Tags')
-            else
-                a(href=config.root + config.tag_dir)= __('Tags')
-        - }
-        include ../mixins
-        +make_page_links()
+                a(href=url_for('about/'))= __('About')
         li.soc
             if theme.github
                 a(href="https://github.com/" + theme.github, target="_blank", rel="noopener noreferrer", aria-label="Github")
