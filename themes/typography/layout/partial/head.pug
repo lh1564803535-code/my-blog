@@ -1,6 +1,6 @@
 meta(charset="utf-8")
 meta(name="X-UA-Compatible", content="IE=edge")
-meta(name="author", content= theme.author)
+meta(name="author", content= config.author ? config.author : theme.author)
 title
     block site_title
         = config.title
@@ -27,4 +27,5 @@ if theme.themeStyle == "light"
 if theme.themeStyle == "dark"
     link(rel="stylesheet", href= url_for('css/style-dark.css'))
 link(rel="stylesheet", href= url_for('css/custom-blog.css'))
-link(rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml")
+- var feedPath = theme.rss ? theme.rss : (config.feed && config.feed.path ? config.feed.path : 'atom.xml')
+link(rel="alternate" type="application/atom+xml" title="ATOM 1.0" href=url_for(feedPath))

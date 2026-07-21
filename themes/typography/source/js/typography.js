@@ -23,7 +23,6 @@ function updateSidebar() {
         var sidebarW =
             stage.width() - $('#main-container').outerWidth() + (window.innerWidth - stage.innerWidth()) / 2;
         $('#side-bar').outerWidth(sidebarW);
-        console.log("sidebarW=" + sidebarW);
         $('#main-container').addClass('col-sm-9');
     }
 }

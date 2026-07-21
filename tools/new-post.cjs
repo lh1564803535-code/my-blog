@@ -153,9 +153,11 @@ async function main() {
 
   const tags = tagInput
     ? tagInput.split(",").map((item) => item.trim()).filter(Boolean)
-    : ["待补充"];
+    : [];
 
-  const tagBlock = tags.map((item) => `  - ${yamlQuote(item)}`).join("\n");
+  const tagBlock = tags.length
+    ? tags.map((item) => `  - ${yamlQuote(item)}`).join("\n")
+    : "  []";
   const content = `---
 title: ${yamlQuote(title)}
 date: ${timestamp()}
