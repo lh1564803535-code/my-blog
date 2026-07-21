@@ -2,7 +2,7 @@
 title: 'Astro 框架快速上手指南'
 date: 2026-04-28 10:00:00
 categories:
-  - 技术
+  - 工程实践
 tags:
   - Astro
   - 前端
