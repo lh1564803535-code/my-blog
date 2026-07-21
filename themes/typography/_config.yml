@@ -1,0 +1,21 @@
+title_primary: "保持思考｜记录｜分享"
+title_secondary: "dalong's blog"
+keywords: 博客,技术,前端
+
+twitter:
+rss: atom.xml
+weibo:
+instagram:
+github: lh1564803535-code
+
+# Choose the comment service according to your need.
+# Please do not use the two services at the same time.
+livere:
+disqus:
+dove:
+
+showPageCount: true
+showCategories: true
+showTags: true
+
+themeStyle: light
