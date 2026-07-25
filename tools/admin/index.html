@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="admin-token" content="__ADMIN_TOKEN__" />
+  <title>博客后台 · dalong's blog</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@3.10.4/dist/index.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">📝 博客后台</div>
+    <div class="top-actions">
+      <span id="git-status" class="git-status"></span>
+      <button id="btn-preview" class="btn">本地预览</button>
+      <button id="btn-publish" class="btn btn-primary">一键发布</button>
+    </div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <input id="search" type="search" placeholder="搜索文章…" autocomplete="off" />
+        <button id="btn-new" class="btn btn-block">＋ 新建文章</button>
+      </div>
+      <ul id="post-list" class="post-list"></ul>
+    </aside>
+    <main class="editor-pane">
+      <div id="empty-hint" class="empty-hint">从左侧选择一篇文章，或点击「新建文章」。</div>
+      <div id="editor-wrap" class="editor-wrap" hidden>
+        <div class="meta-row">
+          <input id="meta-title" class="meta-title" placeholder="文章标题" />
+        </div>
+        <div class="meta-row meta-row-inline">
+          <label>分类
+            <select id="meta-category"></select>
+          </label>
+          <label class="grow">标签（英文逗号分隔）
+            <input id="meta-tags" placeholder="如：AI, SRE" />
+          </label>
+        </div>
+        <div class="editor-toolbar">
+          <button id="btn-save" class="btn btn-primary">保存</button>
+          <button id="btn-image" class="btn">插入图片</button>
+          <button id="btn-delete" class="btn btn-danger">删除</button>
+          <span id="save-hint" class="save-hint"></span>
+        </div>
+        <div id="vditor" class="vditor-host"></div>
+        <textarea id="fallback" class="fallback-editor" hidden placeholder="在此撰写 Markdown 正文…"></textarea>
+      </div>
+    </main>
+  </div>
+  <input id="file-input" type="file" accept="image/*" hidden />
+  <div id="toast" class="toast" hidden></div>
+  <script src="https://cdn.jsdelivr.net/npm/vditor@3.10.4/dist/index.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

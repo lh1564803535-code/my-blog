@@ -1,0 +1,20 @@
+# 统一按 UTF-8 文本处理，换行归一到 LF，根治跨平台 / 中文乱码
+* text=auto eol=lf
+
+# Windows 批处理必须 CRLF，否则双击可能异常
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# 二进制文件不做换行 / 编码转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.otf binary
+*.pdf binary

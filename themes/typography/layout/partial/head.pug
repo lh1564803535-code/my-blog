@@ -12,7 +12,7 @@ if page.keywords
 else
     meta(name="keywords" content= config.keywords ? config.keywords : theme.keywords ? theme.keywords : "")
 
-meta(content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",name="viewport")
+meta(content="width=device-width, initial-scale=1.0",name="viewport")
 meta(content="yes",name="apple-mobile-web-app-capable")
 meta(content="black",name="apple-mobile-web-app-status-bar-style")
 meta(content="telephone=no",name="format-detection")
@@ -29,3 +29,10 @@ if theme.themeStyle == "dark"
 link(rel="stylesheet", href= url_for('css/custom-blog.css'))
 - var feedPath = theme.rss ? theme.rss : (config.feed && config.feed.path ? config.feed.path : 'atom.xml')
 link(rel="alternate" type="application/atom+xml" title="ATOM 1.0" href=url_for(feedPath))
+
+//- JS 失效时的白屏兜底：强制显示被 .invisible 隐藏的主内容与侧栏
+noscript
+    style.
+        .invisible { visibility: visible !important; }
+//- 纯原生站内搜索脚本
+script(src= url_for('js/blog-search.js'), defer)

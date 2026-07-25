@@ -41,7 +41,7 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: false
 
@@ -88,6 +88,7 @@ plugin:
   - hexo-asset-image
   - hexo-prism-plugin
   - hexo-toc
+  - hexo-generator-searchdb
 
 archive_generator:
   per_page: 0
@@ -116,6 +117,13 @@ prism_plugin:
 
 toc:
   maxDepth: 3
+
+# 本地搜索：hexo-generator-searchdb 生成 search.json 供前端搜索
+search:
+  path: search.json
+  field: post
+  content: true
+  format: striptags
 
 deploy:
   type: ''

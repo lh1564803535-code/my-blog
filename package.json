@@ -8,6 +8,9 @@
     "deploy": "hexo deploy",
     "server": "hexo server",
     "write": "node tools/new-post.cjs",
+    "edit": "node tools/edit-post.cjs",
+    "delete": "node tools/delete-post.cjs",
+    "admin": "node tools/admin-server.cjs",
     "preview:open": "node tools/preview-blog.cjs",
     "publish:easy": "node tools/publish-blog.cjs"
   },
@@ -21,6 +24,7 @@
     "hexo-generator-category-enhance": "^0.1.6",
     "hexo-generator-feed": "^4.0.0",
     "hexo-generator-index": "^3.0.0",
+    "hexo-generator-searchdb": "^1.5.0",
     "hexo-generator-tag": "^2.0.0",
     "hexo-prism-plugin": "^2.3.0",
     "hexo-renderer-ejs": "^2.0.0",

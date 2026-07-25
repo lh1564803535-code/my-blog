@@ -1,0 +1,20 @@
+# EditorConfig is awesome: https://editorconfig.org
+# 强制 UTF-8 / LF，根治中文乱码与跨平台换行问题
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# Markdown 保留行尾空格（换行语义）
+[*.md]
+trim_trailing_whitespace = false
+
+# Windows 批处理脚本用 CRLF，避免双击执行异常
+[*.{cmd,bat}]
+end_of_line = crlf
+charset = utf-8

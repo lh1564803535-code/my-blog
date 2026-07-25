@@ -1,10 +1,6 @@
-const fs = require("fs");
-const path = require("path");
 const readline = require("readline");
 const { spawn } = require("child_process");
-
-const repoRoot = path.join(__dirname, "..");
-const postsDir = path.join(repoRoot, "source", "_posts");
+const posts = require("./lib/posts.cjs");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -23,82 +19,9 @@ function getArg(name) {
   return process.argv[index + 1];
 }
 
-function resolveSlug(rawSlug) {
-  const slug = rawSlug.trim().toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "").replace(/^-+|-+$/g, "");
-  if (!slug) {
-    const now = new Date();
-    const pad = (value) => String(value).padStart(2, "0");
-    return `post-${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
-  }
-  return slug;
-}
-
-function yamlQuote(value) {
-  return JSON.stringify(value);
-}
-
-function timestamp() {
-  const now = new Date();
-  const pad = (value) => String(value).padStart(2, "0");
-  return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-}
-
-function bodyTemplate(category) {
-  if (category === "工程实践") {
-    return `## 背景
-
-这篇文章要解决什么问题？
-
-## 我做了什么
-
-- 
-
-## 遇到的坑
-
-- 
-
-## 结果与复盘
-
-- 
-`;
-  }
-
-  if (category === "技术思考") {
-    return `## 我在想什么
-
-这篇文章主要回答什么问题？
-
-## 我的判断
-
-- 
-
-## 为什么我这样看
-
-- 
-
-## 给未来的自己
-
-- 
-`;
-  }
-
-  return `## 今天记录什么
-
-- 
-
-## 我当下的感受
-
-- 
-
-## 这段时间的变化
-
-- 
-`;
-}
-
 function openFile(filePath) {
   spawn("powershell", ["-NoProfile", "-Command", `Start-Process -LiteralPath '${filePath.replace(/'/g, "''")}'`], {
-    cwd: repoRoot,
+    cwd: posts.repoRoot,
     detached: true,
     stdio: "ignore",
   }).unref();
@@ -138,46 +61,22 @@ async function main() {
     console.log("3. 生活随记");
     choice = (await ask("输入 1 / 2 / 3（默认 1）: ")).trim();
   }
-
   const category = categoryMap[choice] || "工程实践";
 
   const tagInput = argTags || (await ask("标签（英文逗号分隔，可留空）: ")).trim();
   const slugInput = argSlug || (await ask("文章网址别名 slug（建议英文，可留空）: ")).trim();
-  let slug = resolveSlug(slugInput);
-  let filePath = path.join(postsDir, `${slug}.md`);
 
-  if (fs.existsSync(filePath)) {
-    slug = `${slug}-${Date.now()}`;
-    filePath = path.join(postsDir, `${slug}.md`);
-  }
-
-  const tags = tagInput
-    ? tagInput.split(",").map((item) => item.trim()).filter(Boolean)
-    : [];
-
-  const tagBlock = tags.length
-    ? tags.map((item) => `  - ${yamlQuote(item)}`).join("\n")
-    : "  []";
-  const content = `---
-title: ${yamlQuote(title)}
-date: ${timestamp()}
-categories:
-  - ${yamlQuote(category)}
-tags:
-${tagBlock}
----
-
-${bodyTemplate(category)}`;
-
-  fs.writeFileSync(filePath, content, "utf8");
+  const result = posts.createPost({ title, category, tags: tagInput, slug: slugInput });
   rl.close();
 
   console.log("");
   console.log("文章已创建：");
-  console.log(filePath);
+  console.log(result.filePath);
+  console.log("配图目录（把图片放进去，正文用 ![](图片名) 引用）：");
+  console.log(result.assetDir);
   console.log("");
 
-  openFile(filePath);
+  openFile(result.filePath);
   console.log("文件已经帮你打开。写完后，双击“发布博客.cmd”即可上线。");
 }
 
