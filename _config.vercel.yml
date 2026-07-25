@@ -1,0 +1,7 @@
+# Vercel 镜像专用覆盖配置（与 GitHub Pages 部署共存，互不影响）
+# Vercel 构建时叠加在 _config.yml 之上（见 vercel.json 的 buildCommand）
+# 关键差异：镜像挂在域名根路径 /，而 GitHub Pages 挂在 /my-blog/ 子路径
+# 注意：项目在 Vercel 创建完成后，若实际分配的域名不是 my-blog.vercel.app，
+#       请把下面的 url 改成实际域名（只影响 RSS/分享链接等绝对地址，不影响页面可用性）
+url: https://my-blog.vercel.app
+root: /

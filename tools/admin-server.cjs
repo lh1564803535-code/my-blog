@@ -40,15 +40,21 @@ const MIME = {
   ".ico": "image/x-icon",
 };
 
+// 防点击劫持：后台页面禁止被任何站点以 iframe 嵌入
+const FRAME_HEADERS = {
+  "X-Frame-Options": "DENY",
+  "Content-Security-Policy": "frame-ancestors 'none'",
+};
+
 function sendJson(res, code, obj) {
   const body = Buffer.from(JSON.stringify(obj), "utf8");
-  res.writeHead(code, { "Content-Type": "application/json; charset=utf-8", "Content-Length": body.length });
+  res.writeHead(code, Object.assign({ "Content-Type": "application/json; charset=utf-8", "Content-Length": body.length }, FRAME_HEADERS));
   res.end(body);
 }
 
 function sendText(res, code, text, type) {
   const body = Buffer.from(text, "utf8");
-  res.writeHead(code, { "Content-Type": type || "text/plain; charset=utf-8", "Content-Length": body.length });
+  res.writeHead(code, Object.assign({ "Content-Type": type || "text/plain; charset=utf-8", "Content-Length": body.length }, FRAME_HEADERS));
   res.end(body);
 }
 
@@ -59,7 +65,7 @@ function serveStatic(res, filePath) {
       return;
     }
     const type = MIME[path.extname(filePath).toLowerCase()] || "application/octet-stream";
-    res.writeHead(200, { "Content-Type": type, "Content-Length": data.length });
+    res.writeHead(200, Object.assign({ "Content-Type": type, "Content-Length": data.length }, FRAME_HEADERS));
     res.end(data);
   });
 }
@@ -165,6 +171,12 @@ async function handleApi(req, res, url) {
 }
 
 const server = http.createServer((req, res) => {
+  // 防 DNS 重绑定（对齐 Jupyter 的做法）：只接受本机 Host 访问
+  const reqHost = String(req.headers.host || "");
+  if (reqHost !== `${HOST}:${PORT}` && reqHost !== `localhost:${PORT}`) {
+    sendText(res, 403, "Forbidden");
+    return;
+  }
   const url = new URL(req.url, `http://${HOST}:${PORT}`);
   if (url.pathname.startsWith("/api/")) {
     handleApi(req, res, url);

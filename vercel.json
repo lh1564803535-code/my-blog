@@ -1,0 +1,6 @@
+{
+  "installCommand": "npm ci",
+  "buildCommand": "npx hexo generate --config _config.yml,_config.vercel.yml",
+  "outputDirectory": "public",
+  "trailingSlash": true
+}
