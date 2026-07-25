@@ -146,7 +146,10 @@ async function handleApi(req, res, url) {
     if (pathname === "/api/publish" && method === "POST") {
       const r = spawnSync("node", [path.join(__dirname, "publish-blog.cjs")], { cwd: repoRoot, encoding: "utf8" });
       const out = (r.stdout || "") + (r.stderr || "");
-      return sendJson(res, 200, { ok: r.status === 0, code: r.status, output: out });
+      const ok = r.status === 0;
+      // 失败时把脚本输出的最后几行透传给页面，避免只显示无意义的状态码
+      const tail = out.split(/\r?\n/).filter(Boolean).slice(-3).join("；");
+      return sendJson(res, 200, { ok, code: r.status, output: out, error: ok ? undefined : ("发布失败：" + (tail || ("退出码 " + r.status))) });
     }
     if (pathname === "/api/preview" && method === "POST") {
       spawn("node", [path.join(__dirname, "preview-blog.cjs")], { cwd: repoRoot, detached: true, stdio: "ignore" }).unref();

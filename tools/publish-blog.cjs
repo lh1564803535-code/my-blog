@@ -2,15 +2,25 @@ const { spawnSync, spawn } = require("child_process");
 const path = require("path");
 
 const repoRoot = path.join(__dirname, "..");
-const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
+const isWin = process.platform === "win32";
 
 function run(command, args, options = {}) {
-  return spawnSync(command, args, {
+  const result = spawnSync(command, args, {
     cwd: repoRoot,
     stdio: "inherit",
     shell: false,
     ...options,
   });
+  if (result.error) {
+    console.error(`命令启动失败: ${command} ${args.join(" ")} -> ${result.error.message}`);
+  }
+  return result;
+}
+
+// Windows 下 npm 实际是 npm.cmd，新版 Node（CVE-2024-27980 修复后）禁止 shell:false 直接启动 .cmd，
+// 会抛 EINVAL，因此统一改经 cmd /c 调用
+function runNpm(args) {
+  return isWin ? run("cmd", ["/c", "npm", ...args]) : run("npm", args);
 }
 
 function capture(command, args) {
@@ -46,7 +56,7 @@ if (!statusBefore.stdout.trim()) {
 }
 
 console.log("1/4 构建站点...");
-let result = run(npmCommand, ["run", "build"]);
+let result = runNpm(["run", "build"]);
 if (result.status !== 0) {
   process.exit(result.status || 1);
 }
